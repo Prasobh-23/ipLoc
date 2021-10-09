@@ -28,9 +28,6 @@ function getLocation(){
                     let longitude = ipInfo.lon;
                     let ISP = ipInfo.isp;
             
-                    /* console.log("You are from " + city + " in " + country + ".\n" + "Your country code is "
-                         + countryCode + ". \n" + "Your zip code is " + zip + "\nYou are exactly at latitude : " 
-                         + latitude + ". " + "longitude : " + longitude + "\nYour internet provider is " + ISP); */
 
                     table.push(
                             { 'City': city }
@@ -43,6 +40,10 @@ function getLocation(){
                         );
                         
                         console.log(table.toString());
+                        let rainanim = chalkAnimation.radar("Thank you for using this APP");
+                        setTimeout(() => {
+                        rainanim.stop();
+                        }, 5000);
                 }   
             });
 
