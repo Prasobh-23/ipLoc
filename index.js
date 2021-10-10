@@ -2,7 +2,8 @@ let inquirer = require('inquirer');
 let request = require('request');
 var Table = require('cli-table');
 const chalkAnimation = require('chalk-animation');
-
+const isOnline = require('is-online');
+var figlet = require('figlet');
 
 function getLocation(){
     inquirer.prompt([{   
@@ -12,7 +13,6 @@ function getLocation(){
     }]).then((answer) => {
         const ipaddres = answer.ipaddress;
         if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddres)){
-            //chalkAnimation.neon("You have entered a valid IP address ");
             let url = 'http://ip-api.com/json/' + ipaddres ;
             var table = new Table();
             request({url}, function(err, resp){
@@ -54,10 +54,30 @@ function getLocation(){
                 pulseanim.stop();
             }, 5000);
             
+            
         }
         
     });
 }
 
-getLocation();
+(async () => {
+	if(await isOnline()){
+        getLocation();
+    }
+    else{
+        figlet('Offline !', function(err, data) {
+            if (err) {
+                console.log('Something went wrong...');
+                console.dir(err);
+                return;
+            }
+            console.log(data)
+            let pulseanim = chalkAnimation.pulse("You are offline! Please check your internet connectivity");
+            setTimeout(() => {
+                pulseanim.stop();
+            }, 5000);
+        });
+    }
+})();
+
 
