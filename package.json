@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "description": "Package that helps you to find the exact location of an IP address",
   "main": "index.js",
+  "bin": {
+    "run": "./index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+  },
+  "jest": {
+    "verbose": true
   },
   "repository": {
     "type": "git",
@@ -20,11 +26,14 @@
   },
   "homepage": "https://github.com/Prasobh-23/ipLoc#readme",
   "dependencies": {
+    "axios": "^0.23.0",
     "chalk-animation": "^1.6.0",
     "cli-table": "^0.3.6",
     "figlet": "^1.5.2",
     "inquirer": "^8.2.0",
-    "is-online": "^9.0.1",
-    "request": "^2.88.2"
+    "is-online": "^9.0.1"
+  },
+  "devDependencies": {
+    "jest": "^27.2.5"
   }
 }
