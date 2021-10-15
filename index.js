@@ -7,10 +7,9 @@ const isOnline = require('is-online');
 var figlet = require('figlet');
 const axios = require('axios');
 
-export const getLocation = async(ipadd) => {
-        if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipadd)){
-            let url = 'http://ip-api.com/json/' + ipadd ;
-            var table = new Table();
+const getLocation = async(ipaddres) => {
+    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddres)){
+        let url = 'http://ip-api.com/json/' + ipaddres ;
             try{
                 const response = await axios.get(url);
                 let city = response.data.city;
@@ -20,6 +19,7 @@ export const getLocation = async(ipadd) => {
                     let latitude = response.data.lat;
                     let longitude = response.data.lon;
                     let ISP = response.data.isp;
+                    var table = new Table();
                     table.push(
                             { 'City': city }
                           , { 'Country': country }
@@ -34,18 +34,19 @@ export const getLocation = async(ipadd) => {
                         setTimeout(() => {
                         rainanim.stop();
                         }, 5000);  
+                        //return response.data.country;
                 }
-            catch (err){
-                console.error(err);
-                 }
-        }else{
+                catch (err){
+                    console.log(err);
+                     }
+        }
+        else{
             let pulseanim = chalkAnimation.pulse("You have entered an Invalid IP address ");
             setTimeout(() => {
                 pulseanim.stop();
-            }, 5000);  
-        }  
-    }
-
+                }, 5000);  
+            }
+}    
 
 async function onCheck(){
 	if(await isOnline()){
@@ -54,10 +55,10 @@ async function onCheck(){
             message: "Enter your IP address : ",
             name : 'ipaddress'}])
             .then((answer) => {
-            const ipaddres = answer.ipaddress;
-        getLocation(ipaddres);
-        });
-    }
+            const ipaddres = answer.ipaddress; 
+            getLocation(ipaddres);
+            });
+        }
     else{
         figlet('Offline !', function(err, data) {
             if (err) {
@@ -73,7 +74,7 @@ async function onCheck(){
         });
     }
 }
-onCheck();
-
+//onCheck();
+exports.getLocation = getLocation;
 
 

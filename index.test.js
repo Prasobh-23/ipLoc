@@ -1,19 +1,19 @@
-const {axios} = require("axios");
-//const {getLocation} = require("./index");
-import {getLocation} from ('./index.js');
+const axios = require("axios");
+const {getLocation} = require("./index");
+
 
 jest.mock("axios");
 
+console.log(getLocation('1.1.1.1'));
 
 it("returns location of an ip address", () => {
         axios.get.mockResolvedValue({
             data: {
-                "status": "success",
                 "country": "Australia"
                 }
         });
-        const query = '1.1.1.1';
-        const country = getLocation(query);
+        const country = getLocation('1.1.1.1');
         expect(country).toEqual("Australia");
+        
 });
 
