@@ -6,6 +6,7 @@ const chalkAnimation = require('chalk-animation');
 const isOnline = require('is-online');
 var figlet = require('figlet');
 const axios = require('axios');
+const countryFlagEmoji = require("country-flag-emoji");
 
 const getLocation = async(ipaddres) => {
     if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddres)){
@@ -15,6 +16,7 @@ const getLocation = async(ipaddres) => {
                 let city = response.data.city;
                 let country = response.data.country;
                 let countryCode = response.data.countryCode;
+                let countryEmoji = countryFlagEmoji.get(countryCode);
                 let zip = response.data.zip;
                 let latitude = response.data.lat;
                 let longitude = response.data.lon;
@@ -23,7 +25,7 @@ const getLocation = async(ipaddres) => {
                 table.push(
                         { 'City': city }
                     , { 'Country': country }
-                    , { 'Country Code': countryCode }
+                    , { 'Country Emoji': countryEmoji.emoji }
                     , { 'Zip': zip }
                     , { 'Latitude': latitude }
                     , { 'Longitude': longitude }
