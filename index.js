@@ -13,42 +13,40 @@ const getLocation = async(ipaddres) => {
             try{
                 const response = await axios.get(url);
                 let city = response.data.city;
-                    let country = response.data.country;
-                    let countryCode = response.data.countryCode;
-                    let zip = response.data.zip;
-                    let latitude = response.data.lat;
-                    let longitude = response.data.lon;
-                    let ISP = response.data.isp;
-                    var table = new Table();
-                    table.push(
-                            { 'City': city }
-                          , { 'Country': country }
-                          , { 'Country Code': countryCode }
-                          , { 'Zip': zip }
-                          , { 'Latitude': latitude }
-                          , { 'Longitude': longitude }
-                          , { 'ISP': ISP }
-                        );
-                        console.log(table.toString());
-                        let rainanim = chalkAnimation.radar("Thank you for using this APP");
-                        setTimeout(() => {
-                        rainanim.stop();
-                        }, 5000);  
-                        //return response.data.country;
+                let country = response.data.country;
+                let countryCode = response.data.countryCode;
+                let zip = response.data.zip;
+                let latitude = response.data.lat;
+                let longitude = response.data.lon;
+                let ISP = response.data.isp;
+                var table = new Table();
+                table.push(
+                        { 'City': city }
+                    , { 'Country': country }
+                    , { 'Country Code': countryCode }
+                    , { 'Zip': zip }
+                    , { 'Latitude': latitude }
+                    , { 'Longitude': longitude }
+                    , { 'ISP': ISP }
+                    );
+                    console.log(table.toString());                    
                 }
+                
                 catch (err){
                     console.log(err);
-                     }
+                     }   
         }
-        else{
+        else/* istanbul ignore next */ {
             let pulseanim = chalkAnimation.pulse("You have entered an Invalid IP address ");
             setTimeout(() => {
                 pulseanim.stop();
                 }, 5000);  
-            }
+            }            
+            
 }    
 
 async function onCheck(){
+    /* istanbul ignore next */
 	if(await isOnline()){
         inquirer.prompt([{   
             type : 'input', 
@@ -74,7 +72,7 @@ async function onCheck(){
         });
     }
 }
-//onCheck();
+onCheck();
 exports.getLocation = getLocation;
 
 
