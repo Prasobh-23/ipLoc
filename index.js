@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 let inquirer = require('inquirer');
 var Table = require('cli-table');
 const chalkAnimation = require('chalk-animation');
@@ -10,6 +8,7 @@ const countryFlagEmoji = require("country-flag-emoji");
 
 const getLocation = async(ipaddres) => {
     if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddres)){
+        //The above if condition is used to check wheather it is a valid ip or not. Regex is used.
         let url = 'http://ip-api.com/json/' + ipaddres ;
             try{
                 const response = await axios.get(url);
@@ -31,7 +30,8 @@ const getLocation = async(ipaddres) => {
                     , { 'Longitude': longitude }
                     , { 'ISP': ISP }
                     );
-                    console.log(table.toString());                    
+                    console.log(table.toString());    
+                //collecting info from the api and pusing it to a table and consoling it.                
                 }
                 
                 catch (err){
@@ -47,10 +47,26 @@ const getLocation = async(ipaddres) => {
             
 }    
 
-async function onCheck(){
+const getLoc = async(param) => {
+    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(param)){
+        let url = 'http://ip-api.com/json/' + param ;
+            try{
+                const response = await axios.get(url);
+                return response.data;
+            }
+            catch (err){
+                console.log(err);
+                 }   
+        }
+    else/* istanbul ignore next */ {
+            return 'Invalid Ipv4 address';
+            }
+    }
+
+async function onCheck(){ 
     /* istanbul ignore next */
-	if(await isOnline()){
-        inquirer.prompt([{   
+	if(await isOnline()){                     //isOnline is a npm package which is used to check wheather the host is connected to internet or not
+        inquirer.prompt([{                    //inquirer is a npm package which is used to take input from the user while working as a CLI application
             type : 'input', 
             message: "Enter your IP address : ",
             name : 'ipaddress'}])
@@ -60,7 +76,7 @@ async function onCheck(){
             });
         }
     else{
-        figlet('Offline !', function(err, data) {
+        figlet('Offline !', function(err, data) {   //figlet is a npm package which used to show some animation
             if (err) {
                 console.log('Something went wrong...');
                 console.log(err);
@@ -74,7 +90,9 @@ async function onCheck(){
         });
     }
 }
-onCheck();
-exports.getLocation = getLocation;
 
+//here we export our three functions inorder to use it as a CLI application and npm package
+exports.getLocation = getLocation;
+exports.onCheck = onCheck;
+exports.getLoc = getLoc;
 

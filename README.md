@@ -1,6 +1,6 @@
 # ipLoc
 
->ipLoc is a CLI tool to gather accurate information about an IP Address such as Country, City, CountryCode, Lattitude, Longitude, Internet Service Provider, etc.
+>ipLoc is a CLI tool and also an npm package to gather accurate information about an IP Address such as Country, City, CountryCode, Lattitude, Longitude, Internet Service Provider, etc.
 It is completely written in JavaScript ⌨️.
 
 # Installation 📥
@@ -15,8 +15,8 @@ It is completely written in JavaScript ⌨️.
 
 # Running CLI 🏃🏼‍♂️
 
-* run
->You just have to type 'run' and hit enter
+* ipv4-info
+>You just have to type 'ipv4-info' and hit enter
 
 # How to use
 
@@ -25,3 +25,43 @@ It is completely written in JavaScript ⌨️.
 # ScreenShot
 
 ![help](https://user-images.githubusercontent.com/67050982/137878848-c737dcba-fc5a-4856-a9bd-edc1b35f3034.png)
+
+
+
+# npm Package
+
+# Installation 📥
+
+* npm i ipLoc
+
+# Setup ⚙️
+
+```
+const ipv4info = require('ipv4-info');
+
+let info;
+
+let fun = async () =>{
+    info = await ipv4info.getLoc('type an ip here as an argument'); // example => info = await ipv4info.getLoc('1.1.1.1');
+    console.log(info);
+}
+fun();
+//Then you will get a json object as response. If you need each element as indivual values , then you can do
+
+console.log(info.country) // this will only print the country name
+```
+
+# name of each elements in the JSON file
+
+status\
+country\
+countryCode\
+region\
+regionName\
+city\
+zip\
+lat\
+lon\
+timezone\
+isp\
+org
