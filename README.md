@@ -1,4 +1,4 @@
-# ipLoc
+# ipLoc (ip-fetch)
 
 >ipLoc is a CLI tool and also an npm package to gather accurate information about an IP Address such as Country, City, CountryCode, Lattitude, Longitude, Internet Service Provider, etc.
 It is completely written in JavaScript ⌨️.
@@ -37,12 +37,12 @@ It is completely written in JavaScript ⌨️.
 # Setup ⚙️
 
 ```
-const ip-fetch = require('ip-fetch');
+const ipfetch = require('ip-fetch');
 
 let info;
 
 let fun = async () =>{
-    info = await ip-fetch.getLoc('type an ip here as an argument'); // example => info = await ip-fetch.getLoc('1.1.1.1');
+    info = await ipfetch .getLoc('1.1.1.1'); // example => info = await ipfetch.getLoc('1.1.1.1');
     console.log(info);
 }
 fun();
