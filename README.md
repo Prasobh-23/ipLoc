@@ -24,7 +24,7 @@ It is completely written in JavaScript ⌨️.
 
 # ScreenShot
 
-![help](https://user-images.githubusercontent.com/67050982/137878848-c737dcba-fc5a-4856-a9bd-edc1b35f3034.png)
+![help](https://user-images.githubusercontent.com/67050982/138317069-ef87ef4b-9c20-4191-8879-eefe0494ab46.png)
 
 
 
