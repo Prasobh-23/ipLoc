@@ -22,6 +22,9 @@ It is completely written in JavaScript ⌨️.
 
 >After you hit enter, a prompt will be displayed by asking for a valid IPv4 address. Then type in your IP address and hit enter again. It will fetch the information and display it shortly
 
+# using npx
+>You just have to type 'npx ip-fetch *<ip address*> and hit enter
+
 # ScreenShot
 
 ![help](https://user-images.githubusercontent.com/67050982/138317069-ef87ef4b-9c20-4191-8879-eefe0494ab46.png)
