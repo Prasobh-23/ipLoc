@@ -15,8 +15,8 @@ It is completely written in JavaScript ⌨️.
 
 # Running CLI 🏃🏼‍♂️
 
-* ipv4-info
->You just have to type 'ipv4-info' and hit enter
+* ip-fetch
+>You just have to type 'ip-fetch' and hit enter
 
 # How to use
 
@@ -32,17 +32,17 @@ It is completely written in JavaScript ⌨️.
 
 # Installation 📥
 
-* npm i ipLoc
+* npm i ip-fetch
 
 # Setup ⚙️
 
 ```
-const ipv4info = require('ipv4-info');
+const ip-fetch = require('ip-fetch');
 
 let info;
 
 let fun = async () =>{
-    info = await ipv4info.getLoc('type an ip here as an argument'); // example => info = await ipv4info.getLoc('1.1.1.1');
+    info = await ip-fetch.getLoc('type an ip here as an argument'); // example => info = await ip-fetch.getLoc('1.1.1.1');
     console.log(info);
 }
 fun();

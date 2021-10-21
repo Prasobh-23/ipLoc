@@ -1,10 +1,10 @@
 {
-  "name": "ipv4-info",
+  "name": "ip-fetch",
   "version": "1.0.0",
   "description": "Package that helps you to find the exact location of an IP address",
   "main": "index.js",
   "bin": {
-    "ipv4-info": "./cli.js"
+    "ip-fetch": "./cli.js"
   },
   "scripts": {
     "test": "jest --coverage"
@@ -17,7 +17,7 @@
     "url": "git+https://github.com/Prasobh-23/ipLoc.git"
   },
   "keywords": [
-    "ipv4-info"
+    "ip-fetch"
   ],
   "author": "Prasobh P",
   "license": "ISC",
