@@ -25,11 +25,6 @@ It is completely written in JavaScript ⌨️.
 # using npx
 >You just have to type 'npx ip-fetch *<ip address*> and hit enter
 
-# ScreenShot
-
-![help](https://user-images.githubusercontent.com/67050982/138317069-ef87ef4b-9c20-4191-8879-eefe0494ab46.png)
-
-
 
 # npm Package
 
@@ -45,7 +40,7 @@ const ipfetch = require('ip-fetch');
 let info;
 
 let fun = async () =>{
-    info = await ipfetch .getLoc('1.1.1.1'); // example => info = await ipfetch.getLoc('1.1.1.1');
+    info = await ipfetch.getLoc('ip address'); // example => info = await ipfetch.getLoc('1.1.1.1');
     console.log(info);
 }
 fun();
