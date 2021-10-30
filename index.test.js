@@ -16,3 +16,9 @@ it("returns location of an ip address", () => {
         })
         
 });
+
+it("returns ip is private or not", () => {
+    getLoc('192.168.1.1').then((res) => {
+        expect(res).toEqual("Invalid Ipv4 address or the ip is private").done();
+    });
+});
