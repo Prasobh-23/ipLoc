@@ -1,5 +1,5 @@
 const axios = require("axios");
-const {getLocation} = require("./index");
+const {getLoc} = require("./index");
 
 jest.mock("axios");
 
@@ -9,7 +9,8 @@ it("returns location of an ip address", () => {
                 "country": "Australia"
                 }
         });
-        getLocation('1.1.1.1').then((country) => {
+        getLoc('1.1.1.1').then((res) => {
+            const country = res.country;
             expect(country).toEqual("Australia").done();
             
         })
