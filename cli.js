@@ -1,10 +1,11 @@
 #!/usr/bin/env node
+/* eslint-disable node/shebang */
 
-let command = require('./index');
+const command = require('./index');
 
-let arg = process.argv[2];
-if (arg)
-{command.getLocation(arg);
-}else{
-command.connectionChecker();
+const arg = process.argv[2];
+if (arg) {
+  command.getLocation(arg);
+} else {
+  command.connectionChecker();
 }
