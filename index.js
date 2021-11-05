@@ -14,29 +14,52 @@ const PRIVATE_IP_REGEX =
 
 const getLocation = async (IP_FROM_USER) => {
   /* istanbul ignore next */
-  if (
-    VALID_IPV4_REGEX.test(IP_FROM_USER) &&
-    PRIVATE_IP_REGEX.test(IP_FROM_USER) === false
-  ) {
-    const URL = `http://ip-api.com/json/${IP_FROM_USER}`;
+  const URL = `http://ip-api.com/json/${IP_FROM_USER}`;
+  /* istanbul ignore next */
+  try {
+    const RESPONSE = await axios.get(URL);
+    const { city, country, zip, lat, lon, isp, countryCode } = RESPONSE.data;
+    const countryEmoji = countryFlagEmoji.get(countryCode);
+    const table = new Table();
+    table.push(
+      { City: city },
+      { Country: country },
+      { 'Country Emoji': countryEmoji.emoji },
+      { Zip: zip },
+      { Latitude: lat },
+      { Longitude: lon },
+      { ISP: isp }
+    );
+    console.log(table.toString());
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//getLoc is a function used for making an npm package
+const getLocationNpm = async (param) => {
+  /* istanbul ignore next */
+  if (VALID_IPV4_REGEX.test(param) && !PRIVATE_IP_REGEX.test(param)) {
+    const URL = `http://ip-api.com/json/${param}`;
     try {
       const RESPONSE = await axios.get(URL);
-      const countryEmoji = countryFlagEmoji.get(RESPONSE.data.countryCode);
-      const table = new Table();
-      table.push(
-        { City: RESPONSE.data.city },
-        { Country: RESPONSE.data.country },
-        { 'Country Emoji': countryEmoji.emoji },
-        { Zip: RESPONSE.data.zip },
-        { Latitude: RESPONSE.data.lat },
-        { Longitude: RESPONSE.data.lon },
-        { ISP: RESPONSE.data.isp }
-      );
-      console.log(table.toString());
+      return RESPONSE.data;
     } catch (err) {
       console.log(err);
     }
-  } /* istanbul ignore next */ else {
+  } else {
+    return 'Invalid Ipv4 address or the ip is private';
+  }
+};
+
+const isIpValid = async (IP_FROM_USER) => {
+  /* istanbul ignore next */
+  if (
+    VALID_IPV4_REGEX.test(IP_FROM_USER) &&
+    !PRIVATE_IP_REGEX.test(IP_FROM_USER)
+  ) {
+    getLocation(IP_FROM_USER);
+  } else {
     const pulseanim = chalkAnimation.pulse(
       'You have entered an Invalid IPv4 address or the ip is private'
     );
@@ -46,37 +69,26 @@ const getLocation = async (IP_FROM_USER) => {
   }
 };
 
-//getLoc is a function used for making an npm package
-const getLocationNpm = async (param) => {
+const takeUserInput = async () => {
   /* istanbul ignore next */
-  if (VALID_IPV4_REGEX.test(param) && PRIVATE_IP_REGEX.test(param) === false) {
-    const URL = `http://ip-api.com/json/${param}`;
-    try {
-      const RESPONSE = await axios.get(URL);
-      return RESPONSE.data;
-    } catch (err) {
-      console.log(err);
-    }
-  } /* istanbul ignore next */ else {
-    return 'Invalid Ipv4 address or the ip is private';
-  }
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        message: 'Enter your IP address : ',
+        name: 'IP_ADDRESS',
+      },
+    ])
+    .then((answer) => {
+      const IP_FROM_USER = answer.IP_ADDRESS;
+      isIpValid(IP_FROM_USER);
+    });
 };
 
 async function connectionChecker() {
   /* istanbul ignore next */
   if (await isOnline()) {
-    inquirer
-      .prompt([
-        {
-          type: 'input',
-          message: 'Enter your IP address : ',
-          name: 'IP_ADDRESS',
-        },
-      ])
-      .then((answer) => {
-        const IP_FROM_USER = answer.IP_ADDRESS;
-        getLocation(IP_FROM_USER);
-      });
+    takeUserInput();
   } else {
     figlet('Offline !', function (err, data) {
       if (err) {
@@ -97,4 +109,5 @@ async function connectionChecker() {
 
 exports.getLocation = getLocation;
 exports.connectionChecker = connectionChecker;
+exports.isIpValid = isIpValid;
 exports.getLocationNpm = getLocationNpm;
