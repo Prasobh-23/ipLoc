@@ -40,7 +40,7 @@ const ipfetch = require('ip-fetch');
 let info;
 
 let fun = async () =>{
-    info = await ipfetch.getLoc('ip address'); // example => info = await ipfetch.getLoc('1.1.1.1');
+    info = await ipfetch.getLocationNpm('ip address'); // example => info = await ipfetch.getLocationNpm('1.1.1.1');
     console.log(info);
 }
 fun();
