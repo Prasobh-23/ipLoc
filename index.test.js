@@ -17,6 +17,8 @@ it('returns location of an ip address', () => {
 
 it('returns ip is private or not', () => {
   getLocationNpm('192.168.1.1').then((res) => {
-    expect(res).toEqual('The IP address is private. Please provide a public IP address');
+    expect(res).toEqual(
+      'The IP address is private. Please provide a public IP address'
+    );
   });
 });

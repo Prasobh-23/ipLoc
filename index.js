@@ -9,9 +9,8 @@ const { validator } = require('./modules/validation');
 
 const DELAY_IN_SECONDS = 5000;
 
-
 const getLocation = async (IP_FROM_USER) => {
-  let validate = await validator(IP_FROM_USER);
+  const validate = await validator(IP_FROM_USER);
   if (validate.ipv4 === true && validate.private === false) {
     /* istanbul ignore next */
     const URL = `http://ip-api.com/json/${IP_FROM_USER}`;
@@ -35,9 +34,7 @@ const getLocation = async (IP_FROM_USER) => {
       console.log(err);
     }
   } else {
-    const pulseanim = chalkAnimation.pulse(
-      `${validate.result}`
-    );
+    const pulseanim = chalkAnimation.pulse(`${validate.result}`);
     setTimeout(() => {
       pulseanim.stop();
     }, DELAY_IN_SECONDS);
@@ -47,7 +44,7 @@ const getLocation = async (IP_FROM_USER) => {
 //getLoc is a function used for making an npm package
 const getLocationNpm = async (param) => {
   /* istanbul ignore next */
-  let validate = await validator(param);
+  const validate = await validator(param);
   if (validate.ipv4 === true && validate.private === false) {
     const URL = `http://ip-api.com/json/${param}`;
     try {
