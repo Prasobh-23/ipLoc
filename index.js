@@ -11,26 +11,36 @@ const DELAY_IN_SECONDS = 5000;
 
 
 const getLocation = async (IP_FROM_USER) => {
-  /* istanbul ignore next */
-  const URL = `http://ip-api.com/json/${IP_FROM_USER}`;
-  /* istanbul ignore next */
-  try {
-    const RESPONSE = await axios.get(URL);
-    const { city, country, zip, lat, lon, isp, countryCode } = RESPONSE.data;
-    const countryEmoji = countryFlagEmoji.get(countryCode);
-    const table = new Table();
-    table.push(
-      { City: city },
-      { Country: country },
-      { 'Country Emoji': countryEmoji.emoji },
-      { Zip: zip },
-      { Latitude: lat },
-      { Longitude: lon },
-      { ISP: isp }
+  let validate = await validator(IP_FROM_USER);
+  if (validate.ipv4 === true && validate.private === false) {
+    /* istanbul ignore next */
+    const URL = `http://ip-api.com/json/${IP_FROM_USER}`;
+    /* istanbul ignore next */
+    try {
+      const RESPONSE = await axios.get(URL);
+      const { city, country, zip, lat, lon, isp, countryCode } = RESPONSE.data;
+      const countryEmoji = countryFlagEmoji.get(countryCode);
+      const table = new Table();
+      table.push(
+        { City: city },
+        { Country: country },
+        { 'Country Emoji': countryEmoji.emoji },
+        { Zip: zip },
+        { Latitude: lat },
+        { Longitude: lon },
+        { ISP: isp }
+      );
+      console.log(table.toString());
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    const pulseanim = chalkAnimation.pulse(
+      `${validate.result}`
     );
-    console.log(table.toString());
-  } catch (err) {
-    console.log(err);
+    setTimeout(() => {
+      pulseanim.stop();
+    }, DELAY_IN_SECONDS);
   }
 };
 
@@ -51,21 +61,6 @@ const getLocationNpm = async (param) => {
   }
 };
 
-const isIpValid = async (IP_FROM_USER) => {
-  /* istanbul ignore next */
-  let validate = await validator(IP_FROM_USER);
-  if (validate.ipv4 === true && validate.private === false) {
-    getLocation(IP_FROM_USER);
-  } else {
-    const pulseanim = chalkAnimation.pulse(
-      `${validate.result}`
-    );
-    setTimeout(() => {
-      pulseanim.stop();
-    }, DELAY_IN_SECONDS);
-  }
-};
-
 const takeUserInput = async () => {
   /* istanbul ignore next */
   inquirer
@@ -78,7 +73,7 @@ const takeUserInput = async () => {
     ])
     .then((answer) => {
       const IP_FROM_USER = answer.IP_ADDRESS;
-      isIpValid(IP_FROM_USER);
+      getLocation(IP_FROM_USER);
     });
 };
 
@@ -106,5 +101,4 @@ async function connectionChecker() {
 
 exports.getLocation = getLocation;
 exports.connectionChecker = connectionChecker;
-exports.isIpValid = isIpValid;
 exports.getLocationNpm = getLocationNpm;
