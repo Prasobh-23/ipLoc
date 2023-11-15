@@ -1,6 +1,6 @@
 {
   "name": "ip-fetch",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "description": "Package that helps you to find the exact location of an IP address",
   "main": "index.js",
   "bin": {

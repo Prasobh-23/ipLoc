@@ -5,7 +5,7 @@ const command = require('./index');
 
 const arg = process.argv[2];
 if (arg) {
-  command.isIpValid(arg);
+  command.getLocation(arg);
 } else {
   command.connectionChecker();
 }

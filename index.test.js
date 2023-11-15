@@ -11,12 +11,14 @@ it('returns location of an ip address', () => {
   });
   getLocationNpm('1.1.1.1').then((res) => {
     const country = res.country;
-    expect(country).toEqual('Australia').done();
+    expect(country).toEqual('Australia');
   });
 });
 
 it('returns ip is private or not', () => {
   getLocationNpm('192.168.1.1').then((res) => {
-    expect(res).toEqual('Invalid Ipv4 address or the ip is private').done();
+    expect(res).toEqual(
+      'The IP address is private. Please provide a public IP address'
+    );
   });
 });
